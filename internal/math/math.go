@@ -25,3 +25,19 @@ func Modulo(a, b int) int {
 	}
 	return a % b
 }
+
+func Power(a, b int) int {
+	result := 1
+	for i := 0; i < b; i++ {
+		result *= a
+	}
+	return result
+}
+
+func Factorial(a int) int {
+	result := 1
+	for i := 1; i <= a; i++ {
+		result *= i
+	}
+	return result
+}
