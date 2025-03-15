@@ -41,3 +41,10 @@ func Factorial(a int) int {
 	}
 	return result
 }
+
+func Fibonacci(a int) int {
+	if a <= 1 {
+		return a
+	}
+	return Fibonacci(a-1) + Fibonacci(a-2)
+}
