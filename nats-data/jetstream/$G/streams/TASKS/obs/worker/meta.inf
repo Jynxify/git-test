@@ -1,1 +1,0 @@
-{"Created":"2025-03-16T15:11:01.986140756Z","Name":"worker","durable_name":"worker","name":"worker","deliver_policy":"all","ack_policy":"explicit","ack_wait":30000000000,"max_deliver":5,"filter_subject":"tasks.*","replay_policy":"instant","max_waiting":512,"max_ack_pending":1000,"num_replicas":0}
