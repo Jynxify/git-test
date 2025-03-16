@@ -1,7 +1,7 @@
 package main
 
 import (
-	"calculate/shared/utils" // Importation du package utils
+	"calculate/internal/utils" // Importation du package utils
 	"fmt"
 )
 
