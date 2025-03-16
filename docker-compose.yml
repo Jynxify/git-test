@@ -1,13 +1,27 @@
 version: "3.8"
 
 services:
-  golang_app:
-    build: .
-    container_name: golang_app
+
+  client:
+    build:
+      context: .
+      dockerfile: ./cmd/client/Dockerfile
+    container_name: client
     networks:
       - monitoring
     ports:
-      - "8080:8080"
+      - "3001:3001"
+    environment:
+      - NATS_URL=nats://nats:4222
+    depends_on:
+      - nats
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://nats:4222/health"]  # You can change the health endpoint based on your client
+      interval: 30s
+      retries: 3
+      start_period: 10s
+      timeout: 10s
+
 
   prometheus:
     image: prom/prometheus:latest
@@ -37,12 +51,14 @@ services:
       
   nats:
     image: nats:latest
-    command: -js -m 8222
+    command: -js -m 8222 --store_dir /data
     networks:
       - monitoring
     ports:
       - "4222:4222"
       - "8222:8222" #Expose monitoring port
+    volumes:
+      - ./nats-data:/data
       
   nats-exporter:
     image: natsio/prometheus-nats-exporter
@@ -51,6 +67,24 @@ services:
       - monitoring
     ports:
       - "7777:7777"
+
+  consumer:
+    build:
+      context: .
+      dockerfile: ./cmd/consumer/Dockerfile
+    container_name: consumer
+    environment:
+      - NATS_URL=nats://nats:4222
+    depends_on:
+      - nats
+    networks:
+      - monitoring
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://nats:4222/health"]  # You can change the health endpoint based on your client
+      interval: 30s
+      retries: 3
+      start_period: 10s
+      timeout: 10s
 
 networks:
   monitoring:
