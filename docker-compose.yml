@@ -52,6 +52,7 @@ services:
   nats:
     image: nats:latest
     command: -js -m 8222 --store_dir /data
+    container_name: nats
     networks:
       - monitoring
     ports:
