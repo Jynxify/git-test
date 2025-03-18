@@ -58,7 +58,7 @@ services:
       - "4222:4222"
       - "8222:8222" #Expose monitoring port
     volumes:
-      - ./nats-data:/data
+      - nats-data:/data
       
   nats-exporter:
     image: natsio/prometheus-nats-exporter
@@ -93,3 +93,4 @@ networks:
 volumes:
   grafana-data:
   prometheus-data:
+  nats-data:
