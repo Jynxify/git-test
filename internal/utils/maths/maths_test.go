@@ -78,6 +78,7 @@ func TestDivision(t *testing.T) {
 		{-1000, 1000, -1, false},
 		{1, 0, 0, true}, // Division by zero
 	}
+	fmt.Println("Debug")
 
 	for _, test := range tests {
 		result, err := safeDivide(test.a, test.b)
